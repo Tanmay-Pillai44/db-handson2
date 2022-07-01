@@ -1,16 +1,16 @@
 const employeeArr = require("./employee.json");
 const mongoClient = require('mongodb').MongoClient;
 
-const connectionString = 'mongodb://127.0.0.1:27017';
+const connectionString = 'mongodb://127.0.0.1:27017/Human_Resource2';
 
 mongoClient.connect(connectionString, async (err, db) => {
     if(err) {
         console.error("Error while connecting", err);
         return;
     }
-
-    const database = db.db("Human_Resource2")
-    console.log(database);
+    console.log("Connected to Database")
+    // const database = db.db("Human_Resource2")
+    // console.log(database);
 
     const result = await database.collection("employee").insertMany(employeeArr);
     console.log(result);
@@ -32,5 +32,4 @@ mongoClient.connect(connectionString, async (err, db) => {
 
     const deleteWithLastCompany = await database.collection("employee").deleteMany({"lastCompany": "Y"});
     console.log(deleteWithLastCompany);
-
 })
